@@ -22,7 +22,7 @@ const cerrarMongoDB = async () => {
     }
     
 }
-
+// Cerrar la coneccion con la base de datos ante cualquier error
 const subscribirCerrar = async () => {
     process.on('exit', cerrarMongoDB);
     process.on('SIGINT', cerrarMongoDB);

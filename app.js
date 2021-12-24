@@ -17,7 +17,7 @@ const {conectarAMongoDB, subscribirCerrar} = require('./db/db');
 
 conectarAMongoDB(); // Establecer coneccion con la base de datos
 
-registrarControladores(app);  // Registramos ka configuración de las funciones controladoras
+registrarControladores(app);  // Registramos la configuración de las funciones controladoras
 
 // Configuramos watcher para cerrar la coneccion con la base de datos
 

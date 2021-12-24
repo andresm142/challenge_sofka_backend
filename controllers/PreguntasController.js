@@ -15,7 +15,7 @@ router.post('/new', async (req, res) => {
             respuestaCorrecta: req.body.respuestaCorrecta,
             categoria: categoria
         });
-        console.log(pregunta);
+        
         pregunta.save().then((pregunta) => {
     
             res.json({ message: 'Pregunta creada correctamente', pregunta: pregunta });
@@ -42,7 +42,7 @@ router.get('/categoria/:id', (req, res) => {
 // Obtener una pregunta por nivel de categoria
 router.get('/nivel/:nivel', (req, res) => {
     // obtnemos todos las categorias con el nivel que nos llega por parametro
-    console.log(req.params);
+    
     Categoria.find({nivel: req.params.nivel}).then((categorias) => {
         // creamos un array con los ids de las categorias
         const ids = categorias.map(categoria => categoria._id);
