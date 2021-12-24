@@ -5,24 +5,28 @@ const {Categoria} = require('../models/Categoria');
 
 // Crear una nueva pregunta y asignarla a una categoria
 router.post('/new', async (req, res) => {
+    if (req.body.categoria) {
+        const categoria = await Categoria.findById(req.body.categoria);
+        const pregunta = new Pregunta({
+            pregunta: req.body.pregunta,
+            respuesta1: req.body.respuesta1,
+            respuesta2: req.body.respuesta2,
+            respuesta3: req.body.respuesta3,
+            respuestaCorrecta: req.body.respuestaCorrecta,
+            categoria: categoria
+        });
+        console.log(pregunta);
+        pregunta.save().then((pregunta) => {
     
-    const categoria = await Categoria.findById(req.body.categoria);
+            res.json({ message: 'Pregunta creada correctamente', pregunta: pregunta });
+        }).catch((err) => {
+            res.json({ message: 'Error al crear la pregunta', err });
+        });
+    } else {
+        res.status(500).send({ message: 'Debe seleccionar una categoria' });
+    }
+  
     
-    const pregunta = new Pregunta({
-        pregunta: req.body.pregunta,
-        respuesta1: req.body.respuesta1,
-        respuesta2: req.body.respuesta2,
-        respuesta3: req.body.respuesta3,
-        respuestaCorrecta: req.body.respuestaCorrecta,
-        categoria: categoria
-    });
-    console.log(pregunta);
-    pregunta.save().then((pregunta) => {
-
-        res.json({ message: 'Pregunta creada correctamente', pregunta: pregunta });
-    }).catch((err) => {
-        res.json({ message: 'Error al crear la pregunta', err });
-    });
 });
 
 // Obtener todas las preguntas por categoria

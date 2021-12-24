@@ -9,25 +9,22 @@ require('dotenv').config();
 app.use(cors()); // Configuramos el middleware de cors para permitir peticiones desde cualquier origen
 app.use(express.json()); // Configuramos el middleware de express para que pueda leer los datos enviados en formato json
 app.use(express.urlencoded()); // Permite que los datos sean enviados en formato urlencoded
-app.use(require('./routes/routers')); // Configuramos las rutas
 
-const {
-  registrarControladores
-} = require('./controllers');
 
-const {
-  conectarAMongoDB,
-  subscribirCerrar
-} = require('./db/db');
+const {registrarControladores} = require('./controllers');
 
-// Establecer coneccion con la base de datos
+const {conectarAMongoDB, subscribirCerrar} = require('./db/db');
 
-conectarAMongoDB(); // Registramos ka configuración de las funciones controladoras
+conectarAMongoDB(); // Establecer coneccion con la base de datos
 
-registrarControladores(app); // Configuramos watcher para cerrar la coneccion con la base de datos
+registrarControladores(app);  // Registramos ka configuración de las funciones controladoras
+
+// Configuramos watcher para cerrar la coneccion con la base de datos
 
 subscribirCerrar();
 
+
+// Iniciamos el servidor
 app.listen(port, () => {
     console.log(`Server running on port http://localhost:${port}`);
   });
