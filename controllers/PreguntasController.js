@@ -36,8 +36,9 @@ router.get('/categoria/:id', (req, res) => {
 });
 
 // Obtener una pregunta por nivel de categoria
-router.get('/:nivel', (req, res) => {
+router.get('/nivel/:nivel', (req, res) => {
     // obtnemos todos las categorias con el nivel que nos llega por parametro
+    console.log(req.params);
     Categoria.find({nivel: req.params.nivel}).then((categorias) => {
         // creamos un array con los ids de las categorias
         const ids = categorias.map(categoria => categoria._id);
@@ -46,7 +47,7 @@ router.get('/:nivel', (req, res) => {
             // Seleccionamos una pregunta aleatoria
             const pregunta = preguntas[Math.floor(Math.random() * preguntas.length)];
             // Enviamos la pregunta
-            res.json({message: 'Pregunta obtenida correctamente', pregunta});
+            res.json({message: 'Pregunta obtenida correctamente', pregunta: pregunta});
 
         }).catch((err) => {
             res.json({message: 'Error al obtener las preguntas', err});
